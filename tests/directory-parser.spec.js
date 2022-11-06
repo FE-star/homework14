@@ -39,9 +39,9 @@ test('directory with a little nesting', () => {
     `{ name: 'contact', path: '/contact', component: () => import('/${dir}/contact.vue') }`,
     `{ name: 'index', path: '/', component: () => import('/${dir}/index.vue') }`,
     `{ name: 'level1-about', path: '/level1/about', component: () => import('/${dir}/level1/about.vue') }`,
-    `{ name: 'level1-team', path: '/level1/team', component: () => import('/${dir}/level1/team.vue') }`,
     `{ name: 'level1-level2-deep', path: '/level1/level2/deep', component: () => import('/${dir}/level1/level2/deep.vue') }`,
     `{ name: 'level1-level2', path: '/level1/level2/', component: () => import('/${dir}/level1/level2/index.vue') }`,
+    `{ name: 'level1-team', path: '/level1/team', component: () => import('/${dir}/level1/team.vue') }`
   ])
 })
 
@@ -69,10 +69,10 @@ test('directory with some params', () => {
 
   expect(routes).toEqual([
     `{ name: 'about', path: '/about', component: () => import('/${dir}/about.vue') }`,
+    `{ name: 'team-join', path: '/team/join', component: () => import('/${dir}/team/join.vue') }`,
+    `{ name: 'team-name', path: '/team/:name', component: () => import('/${dir}/team/_name.vue') }`,
     `{ name: 'product-buy', path: '/:product/buy', component: () => import('/${dir}/_product/buy.vue') }`,
     `{ name: 'product-sell', path: '/:product/sell', component: () => import('/${dir}/_product/sell.vue') }`,
-    `{ name: 'team-name', path: '/team/:name', component: () => import('/${dir}/team/_name.vue') }`,
-    `{ name: 'team-join', path: '/team/join', component: () => import('/${dir}/team/join.vue') }`,
   ])
 })
 
@@ -81,6 +81,16 @@ test('directory with everything', () => {
   const { routes } = parsePagesDirectory(dir)
 
   expect(routes).toEqual([
+    `{ name: 'about', path: '/about', component: () => import('/${dir}/about.vue') }`,
+    oneLine`{
+      path: '/contact',
+      component: () => import('/${dir}/contact.vue'),
+      children: [
+        { name: 'contact-feedback', path: 'feedback', component: () => import('/${dir}/contact/feedback.vue') },
+        { name: 'contact-help', path: 'help', component: () => import('/${dir}/contact/help.vue') }
+      ]
+    }`,
+    `{ name: 'index', path: '/', component: () => import('/${dir}/index.vue') }`,
     oneLine`{
       path: '/:product',
       component: () => import('/${dir}/_product.vue'),
@@ -90,16 +100,5 @@ test('directory with everything', () => {
         { name: 'product-sell', path: 'sell', component: () => import('/${dir}/_product/sell.vue') }
       ]
     }`,
-    `{ name: 'about', path: '/about', component: () => import('/${dir}/about.vue') }`,
-    oneLine`{
-      name: 'contact',
-      path: '/contact',
-      component: () => import('/${dir}/contact.vue'),
-      children: [
-        { name: 'contact-feedback', path: 'feedback', component: () => import('/${dir}/contact/feedback.vue') },
-        { name: 'contact-help', path: 'help', component: () => import('/${dir}/contact/help.vue') }
-      ]
-    }`,
-    `{ name: 'index', path: '/', component: () => import('/${dir}/index.vue') }`,
   ])
 })
