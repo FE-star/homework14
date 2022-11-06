@@ -92,7 +92,6 @@ test('directory with everything', () => {
     }`,
     `{ name: 'about', path: '/about', component: () => import('/${dir}/about.vue') }`,
     oneLine`{
-      name: 'contact',
       path: '/contact',
       component: () => import('/${dir}/contact.vue'),
       children: [
@@ -102,4 +101,4 @@ test('directory with everything', () => {
     }`,
     `{ name: 'index', path: '/', component: () => import('/${dir}/index.vue') }`,
   ])
-})
+}) 
