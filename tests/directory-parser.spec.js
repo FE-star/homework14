@@ -81,6 +81,15 @@ test('directory with everything', () => {
   const { routes } = parsePagesDirectory(dir)
 
   expect(routes).toEqual([
+    oneLine`{
+      path: '/:product',
+      component: () => import('/${dir}/_product.vue'),
+      children: [
+        { name: 'product-buy', path: 'buy', component: () => import('/${dir}/_product/buy.vue') },
+        { name: 'product', path: '', component: () => import('/${dir}/_product/index.vue') },
+        { name: 'product-sell', path: 'sell', component: () => import('/${dir}/_product/sell.vue') }
+      ]
+    }`,
     `{ name: 'about', path: '/about', component: () => import('/${dir}/about.vue') }`,
     oneLine`{
       path: '/contact',
@@ -91,14 +100,5 @@ test('directory with everything', () => {
       ]
     }`,
     `{ name: 'index', path: '/', component: () => import('/${dir}/index.vue') }`,
-    oneLine`{
-      path: '/:product',
-      component: () => import('/${dir}/_product.vue'),
-      children: [
-        { name: 'product-buy', path: 'buy', component: () => import('/${dir}/_product/buy.vue') },
-        { name: 'product', path: '', component: () => import('/${dir}/_product/index.vue') },
-        { name: 'product-sell', path: 'sell', component: () => import('/${dir}/_product/sell.vue') }
-      ]
-    }`,
   ])
 }) 
