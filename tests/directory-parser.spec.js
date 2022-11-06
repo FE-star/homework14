@@ -69,10 +69,10 @@ test('directory with some params', () => {
 
   expect(routes).toEqual([
     `{ name: 'about', path: '/about', component: () => import('/${dir}/about.vue') }`,
-    `{ name: 'team-join', path: '/team/join', component: () => import('/${dir}/team/join.vue') }`,
-    `{ name: 'team-name', path: '/team/:name', component: () => import('/${dir}/team/_name.vue') }`,
     `{ name: 'product-buy', path: '/:product/buy', component: () => import('/${dir}/_product/buy.vue') }`,
     `{ name: 'product-sell', path: '/:product/sell', component: () => import('/${dir}/_product/sell.vue') }`,
+    `{ name: 'team-join', path: '/team/join', component: () => import('/${dir}/team/join.vue') }`,
+    `{ name: 'team-name', path: '/team/:name', component: () => import('/${dir}/team/_name.vue') }`,
   ])
 })
 
