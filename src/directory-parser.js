@@ -83,11 +83,20 @@ function dirHandle(rawRoutes = [], path, getAllFiles) {
   return true;
 }
 function getFatherComponent(rawRoutes = [], path) {
-  path = path.split('/');
-  const name = path[path.length - 1];
-  return rawRoutes.find(item => {
-    return item.name === name;
-  });
+  for (let i = 0; i < rawRoutes.length; ++i) {
+    const test = rawRoutes[i].importPath;
+    const routeImportPath = test.replace(/[\.]{1}[a-zA-Z]*$/, '');
+    if (path === routeImportPath) {
+      return rawRoutes[i];
+    }
+    if (rawRoutes[i].children && rawRoutes[i].children.length > 0) {
+      const res = getFatherComponent(rawRoutes[i].children, path);
+      if (res) {
+        return res;
+      }
+    }
+  }
+  return null;
 }
 /**
  * 
@@ -119,13 +128,11 @@ function urlPathAdapter(path = '', fatherImportPath) {
   while (prefix[cutIndex] === path[cutIndex]) {
     ++cutIndex;
   }
-  fatherImportPath ? (++cutIndex) : '';
   path = path.slice(cutIndex);
   path = path.replace(/[\.]{1}[a-zA-Z]*/, '');
-  // if (path.slice(1) === 'index') {
-  //   path = '/';
-  // }
-  return path.replace(/\_/g, ':').replace(/(?:\/)index$/g, '/');
+  path = path.replace(/(?:\/)index$/g, '/');
+  fatherImportPath && (path = path.replace(/\//g, ''));
+  return path.replace(/\_/g, ':');
 }
 function nameAdapter(path, prefixName) {
   let cutIndex = 0;
@@ -136,6 +143,7 @@ function nameAdapter(path, prefixName) {
   cutIndex++;
   path = path.slice(cutIndex);
   path = path.replace(/[\.]{1}[a-zA-Z]*/, '').replace(/(?:\/)index$/g, '');
+  path = path.replace(/_/g, '');
   return path.replace(/\//g, '-');
 }
 function routesAdapter(rawRoutes = []) {
@@ -153,7 +161,7 @@ function routesAdapter(rawRoutes = []) {
   return rawRoutes.map(item => item.export);;
 }
 
-// const res = parsePagesDirectory('./tests/scenarios/with-some-child-components')
+// const res = parsePagesDirectory('./tests/scenarios/with-everything')
 // console.log(res);
 module.exports = {
   parsePagesDirectory,
