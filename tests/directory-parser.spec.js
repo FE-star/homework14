@@ -44,7 +44,7 @@ test('directory with a little nesting', () => {
   ])
 })
 
-/* test('directory with child components', () => {
+test('directory with child components', () => {
   const dir = 'tests/scenarios/with-some-child-components'
   const { routes } = parsePagesDirectory(dir)
 
@@ -60,9 +60,9 @@ test('directory with a little nesting', () => {
       ]
     }`,
   ])
-}) */
+})
 
-/* test('directory with some params', () => {
+test('directory with some params', () => {
   const dir = 'tests/scenarios/with-some-params'
   const { routes } = parsePagesDirectory(dir)
 
@@ -73,9 +73,9 @@ test('directory with a little nesting', () => {
     `{ name: 'team-name', path: '/team/:name', component: () => import('/${dir}/team/_name.vue') }`,
     `{ name: 'team-join', path: '/team/join', component: () => import('/${dir}/team/join.vue') }`,
   ])
-}) */
+})
 
-/* test('directory with everything', () => {
+test('directory with everything', () => {
   const dir = 'tests/scenarios/with-everything'
   const { routes } = parsePagesDirectory(dir)
 
@@ -91,7 +91,6 @@ test('directory with a little nesting', () => {
     }`,
     `{ name: 'about', path: '/about', component: () => import('/${dir}/about.vue') }`,
     oneLine`{
-      name: 'contact',
       path: '/contact',
       component: () => import('/${dir}/contact.vue'),
       children: [
@@ -101,4 +100,4 @@ test('directory with a little nesting', () => {
     }`,
     `{ name: 'index', path: '/', component: () => import('/${dir}/index.vue') }`,
   ])
-}) */
+})
