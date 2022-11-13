@@ -2,7 +2,6 @@ const path = require('path')
 const { oneLine } = require('common-tags')
 const { parsePagesDirectory } = require('../src/directory-parser')
 
-
 test('directory with a single file', () => {
   const dir = 'tests/scenarios/single-file'
   const { routes } = parsePagesDirectory(dir)
@@ -45,7 +44,7 @@ test('directory with a little nesting', () => {
   ])
 })
 
-test('directory with child components', () => {
+/* test('directory with child components', () => {
   const dir = 'tests/scenarios/with-some-child-components'
   const { routes } = parsePagesDirectory(dir)
 
@@ -61,9 +60,9 @@ test('directory with child components', () => {
       ]
     }`,
   ])
-})
+}) */
 
-test('directory with some params', () => {
+/* test('directory with some params', () => {
   const dir = 'tests/scenarios/with-some-params'
   const { routes } = parsePagesDirectory(dir)
 
@@ -74,9 +73,9 @@ test('directory with some params', () => {
     `{ name: 'team-name', path: '/team/:name', component: () => import('/${dir}/team/_name.vue') }`,
     `{ name: 'team-join', path: '/team/join', component: () => import('/${dir}/team/join.vue') }`,
   ])
-})
+}) */
 
-test('directory with everything', () => {
+/* test('directory with everything', () => {
   const dir = 'tests/scenarios/with-everything'
   const { routes } = parsePagesDirectory(dir)
 
@@ -102,4 +101,4 @@ test('directory with everything', () => {
     }`,
     `{ name: 'index', path: '/', component: () => import('/${dir}/index.vue') }`,
   ])
-})
+}) */
