@@ -2,7 +2,6 @@ const path = require('path')
 const { oneLine } = require('common-tags')
 const { parsePagesDirectory } = require('../src/directory-parser')
 
-
 test('directory with a single file', () => {
   const dir = 'tests/scenarios/single-file'
   const { routes } = parsePagesDirectory(dir)
@@ -92,7 +91,6 @@ test('directory with everything', () => {
     }`,
     `{ name: 'about', path: '/about', component: () => import('/${dir}/about.vue') }`,
     oneLine`{
-      name: 'contact',
       path: '/contact',
       component: () => import('/${dir}/contact.vue'),
       children: [
