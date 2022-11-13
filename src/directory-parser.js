@@ -135,7 +135,6 @@ function parsePagesDirectory(
   let routes = []
 
   //TODO
-  // let paths = []
   const root = path.resolve(process.cwd(), dir)
   recursivePaths({
     filePath: root,
